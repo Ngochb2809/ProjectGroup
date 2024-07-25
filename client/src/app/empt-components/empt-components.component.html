@@ -1,0 +1,27 @@
+<body>
+
+    <h3>Using CSS to style an HTML Form</h3>
+    <form (ngSubmit)="submit()" action="/action_page.php">
+        <h1>Nhập Tên</h1>
+        <input maxlength="20" id="name" name="name" pInputText inputId="textonly" [(ngModel)]="inputs"
+            [required]="true" />
+        <h1>Nhập tuổi</h1>
+        <p-inputNumber [(ngModel)]="inputsOld" mode="decimal" name="inputsOld" inputId="withoutgrouping"
+            [useGrouping]="false" [required]="true">
+        </p-inputNumber>
+        <h1>Quê Quán</h1>
+        <div>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" name="cities"></p-dropdown>
+        </div>
+        <h1> Ngôn ngữ</h1>
+        <div>
+            <p-multiSelect [options]="language" name="language" [(ngModel)]="selectedLanguage"
+                defaultLabel="Select language" display="chip" required="false"></p-multiSelect>
+        </div>
+        <p-button type="Submit" label="Submit"></p-button>
+
+    </form>
+    <form (ngSubmit)="logout()">
+        <p-button type="Submit" label="Logout "></p-button>
+    </form>
+</body>

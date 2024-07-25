@@ -1,0 +1,17 @@
+/* Trong file app-toast.component.css hoặc file CSS chung */
+.app-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color:  #fff;
+    color: #2ecc71;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 9999; /* Đảm bảo thanh toast hiển thị trên các phần tử khác */
+}
+
+.app-toast span {
+    margin-right: 10px;
+}
+

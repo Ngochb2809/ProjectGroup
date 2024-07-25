@@ -1,0 +1,107 @@
+<div class="container">
+    <h2 *ngIf="this.role=='Admin'">Event</h2>
+    <button *ngIf="this.role=='Admin'" class="btn btn-primary" (click)="toggleForm()">Add Event</button>
+    <div *ngIf="showForm">
+        <form (ngSubmit)="createEvent()">
+            <div class="form-group">
+                <label for="eventName">Event Name:</label>
+                <input type="text" class="form-control" id="eventName" name="eventName" [(ngModel)]="event.eventName"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="firstClosureDate">Deadline post:</label>
+                <input type="date" class="form-control" id="firstClosureDate" name="firstClosureDate"
+                    [(ngModel)]="event.firstClosureDate" required>
+            </div>
+            <div class="form-group">
+                <label for="finalClosureDate">Deadeline interaction:</label>
+                <input type="date" class="form-control" id="finalClosureDate" name="finalClosureDate"
+                    [(ngModel)]="event.finalClosureDate" required>
+            </div>
+            <div class="form-group">
+                <label for="durationBetweenClosure">Duration Between Closure:</label>
+                <input type="number" id="durationBetweenClosure" class="form-control"
+                    [(ngModel)]="event.durationBetweenClosure" disabled>
+            </div>
+            <div class="form-group">
+                <label for="facultyID">Faculty ID:</label>
+                <input type="text" class="form-control" id="facultyID" name="facultyID" [(ngModel)]="event.facultyID"
+                    required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Event</button>
+            <app-toast *ngIf="showToast" [message]="toastMessage"></app-toast>
+        </form>
+    </div>
+    <div *ngIf="events.length > 0">
+        <h3>All Events</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Deadline post</th>
+                    <th>Deadeline interaction</th>
+                    <th>Duration Between Closure</th>
+                    <th *ngIf="this.role== 'Admin'">Action</th>
+                    <th *ngIf="this.role=='Student'">Post</th>
+                    <th>All Post</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ev of events">
+                    <td>{{ ev.eventName }}</td>
+                    <td>{{ ev.firstClosureDate }}</td>
+                    <td>{{ ev.finalClosureDate }}</td>
+                    <td>{{ ev.durationBetweenClosure }}</td>
+                    <td *ngIf="this.role=='Admin'">
+                        <button (click)="editEvent(ev)" class="btn btn-info">Edit</button>
+                        <button (click)="deleteEvent(ev.eventID)" class="btn btn-danger">Delete</button>
+                        <app-toast *ngIf="showToast" [message]="toastMessage"></app-toast>
+                        <!-- Nút xóa -->
+                    </td>
+                    <td  *ngIf="this.role=='Student'">
+                        <button (click)="openPost(ev.eventID)" class="btn btn-info">Post</button>
+                        <div  *ngIf="isEventExpired(ev)" class="alert alert-warning">
+                        </div>
+                    </td>
+                    <td>
+                        <button (click)="openAllPost(ev.eventID)" class="btn btn-info">AllPost</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="events.length === 0">
+        <p>No events found.</p>
+    </div>
+</div>
+
+<p-dialog [(visible)]="visible" header="Edit Event" [style]="{ width: '50%' }">
+    <ng-container *ngIf="editingEvent">
+        <label for="eventName">Event Name:</label>
+        <input type="text" id="eventName" [(ngModel)]="editingEvent.eventName" /><br/>
+
+        <label for="firstClosureDate">Deadline post</label>
+        <input type="string" id="firstClosureDate" [(ngModel)]="editingEvent.firstClosureDate" /><br/>
+
+        <label for="finalClosureDate">Deadeline interaction:</label>
+        <input type="stirng" id="finalClosureDate" [(ngModel)]="editingEvent.finalClosureDate" /><br/>
+
+        <label for="durationBetweenClosure">Duration Between Closure:</label>
+        <input type="number" id="durationBetweenClosure" [(ngModel)]="editingEvent.durationBetweenClosure" disabled /><br/>
+
+        <label for="facultyID">Faculty ID:</label>
+        <input type="text" id="facultyID" [(ngModel)]="editingEvent.facultyID" /><br/>
+
+        <button (click)="saveChanges(editingEvent.eventID, editingEvent.firstClosureDate, editingEvent.finalClosureDate)">Save Changes</button>
+        <app-toast *ngIf="showToast" [message]="toastMessage"></app-toast>
+        <button (click)="cancelEdit()">Cancel</button>
+    </ng-container>
+</p-dialog>
+
+<p-dialog [(visible)]="opPost" header="Post" [style]="{ width: '50%' }">
+    <app-post-contributed-article></app-post-contributed-article>
+</p-dialog>
+
+<p-dialog [(visible)]="opAllPost" header="All Post" [style]="{ width: '50%' }">
+    <app-show-post> </app-show-post>
+</p-dialog>

@@ -1,0 +1,99 @@
+.top-bar {
+    position: relative; /* Thêm thuộc tính này */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    color: #000; /* Màu chữ đen */
+    padding: 10px;
+}
+.top-bar .logo img {
+    width: 200px; /* Đặt chiều rộng mong muốn */
+    height: auto; /* Giữ tỷ lệ khung hình */
+}
+.top-bar .login a {
+    color: #000; /* Màu chữ đen */
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 2px solid #000; /* Đổi màu viền thành đen */
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    margin-right: 20px; /* Khoảng cách từ phần tử này đến phần tử tiếp theo */
+}
+
+.top-bar .login a:hover {
+    background-color: #000; /* Đổi màu nền khi di chuột qua thành đen */
+    color: #fff; /* Đổi màu chữ khi di chuột qua thành trắng */
+}
+
+.top-bar .logout button {
+    color: #000; /* Màu chữ đen */
+    background-color: transparent;
+    border: none;
+    padding: 10px 15px;
+    border: 2px solid #000; /* Đổi màu viền thành đen */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    margin-left: 20px; /* Khoảng cách từ phần tử này đến phần tử tiếp theo */
+}
+
+.top-bar .logout button:hover {
+    background-color: #000; /* Đổi màu nền khi di chuột qua thành đen */
+    color: #fff; /* Đổi màu chữ khi di chuột qua thành trắng */
+}
+
+.top-bar .notification button {
+    color: #000; /* Màu chữ đen */
+    background-color: transparent;
+    border: none;
+    padding: 10px 15px;
+    border: 2px solid #000; /* Đổi màu viền thành đen */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    margin-left: 900px;
+}
+
+.top-bar .notification button:hover {
+    background-color: #000; /* Đổi màu nền khi di chuột qua thành đen */
+    color: #fff; /* Đổi màu chữ khi di chuột qua thành trắng */
+}
+
+.notification-dropdown {
+    position: absolute;
+    top: calc(100% + 10px); /* Đặt khoảng cách từ phần tử gốc */
+    right: 0;
+    min-width: 500px; /* Đặt chiều rộng tối thiểu cho dropdown */
+    max-height: 200px; /* Đặt chiều cao tối đa cho dropdown */
+    overflow-y: auto; /* Cho phép cuộn nếu nội dung vượt quá chiều cao tối đa */
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1000;
+    display: block; /* Bắt đầu ẩn dropdown khi chưa được kích hoạt */
+    color: #333; /* Đặt màu chữ */
+    display: none; /* Đổi display thành none để ẩn dropdown ban đầu */
+}
+
+.notification-dropdown ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-dropdown ul li {
+    padding: 10px;
+    transition: background-color 0.3s ease-in-out;
+    white-space: nowrap; /* Ngăn chặn tràn dòng */
+    overflow: hidden; /* Ẩn nội dung vượt ra khỏi khung */
+    text-overflow: ellipsis; /* Hiển thị dấu ba chấm cho nội dung bị ẩn */
+
+}
+
+.notification-dropdown ul li:hover {
+    background-color: gray;
+}
+.notification-dropdown.active {
+    display: block; /* Thêm class active để hiển thị dropdown */
+}

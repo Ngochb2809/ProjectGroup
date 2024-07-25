@@ -1,0 +1,185 @@
+<div class="receivable-customer-report">
+    <div class="row no-margin">
+        <div class="box-header">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box-header-group-btn">
+                            <button type="button" class="btn-filter" (click)="showFilter()">
+                                <i class="fa fa-filter"></i>
+                                <span class="btn-filter-text">Filter</span>
+                            </button>
+                            <input (keyup)="searchBox()" type="text" [(ngModel)]="filterWord" class="iput-text"
+                                placeholder="Search">
+                            <div style="clear: both;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row no-margin" style="background-color: #f2f4f8;">
+        <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+            <div class="box-filter">
+                <div class="row no-margin">
+                    <div class="col-md-12 mt-5">
+                        <span>Contribution by Faculty</span>
+                    </div>
+                    <div class="col-md-12">
+                        <p-multiSelect [options]="postList" [(ngModel)]="this.dongGopTheoTungKhoa"
+                            defaultLabel="Selected Faculty " optionLabel="title" [style]="{'width': '100%'}"
+                            [resetFilterOnHide]="true" selectedItemsLabel="{0} faculty choseed "></p-multiSelect>
+                    </div>
+                </div>
+
+                <div class="row no-margin">
+                    <div class="col-md-12 mt-5">
+                        <span>Most Popular Contribution</span>
+                    </div>
+                    <div class="col-md-12">
+
+                        <p-dropdown [options]="  listCheckDongGopPhoBienNhat
+                        " [(ngModel)]="dongGopPhoBienNhat" optionLabel="header" [showClear]="true"
+                            placeholder="Selected Time"></p-dropdown>
+                    </div>
+                </div>
+
+                <div class="row no-margin">
+                    <div class="col-md-12 mt-5">
+                        <span>Newest Contribution</span>
+                    </div>
+                    <div class="col-md-12">
+                        <p-dropdown [options]="timeToSearchList" [(ngModel)]="dongGopMoiNhat" optionLabel="header"
+                            [showClear]="true" placeholder="Selected Time"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-margin pb-1">
+                <div class="col-md-12 mt-5" style="text-align: right">
+                    <button (click)="search()" type="button" class="btn-search">
+                        <span class="btn-search-text">Search</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngFor="let post of postList" class="post">
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.content }}</p>
+    <time>{{ post.submissionDate }}</time>
+    <time>{{ post.closureDate }}</time>
+    <div class="button-group">
+        <!-- Nút like -->
+        <div class="interaction">
+            <div class="icon-with-count" *ngIf="this.role=='Student'">
+                <button id="likeButton" type="button" class="like-btn" (click)="doLike(post.contributionId, true)"
+                    [class.liked]="likedPostsMap.get(post.contributionId)">
+                    <i class="material-icons" [class.liked]="likedPostsMap.get(post.contributionId)">thumb_up</i>
+                    <!-- Thêm icon like -->
+                </button>
+                <span>{{ post.likes }}</span> <!-- Hiển thị số lượng like -->
+            </div>
+            <!-- Nút dislike -->
+            <div class="icon-with-count" *ngIf="this.role=='Student'">
+                <button type="button" class="dislike-btn" (click)="doDislike(post.contributionId, true)"
+                    [class.disliked]="dislikedPosts.has(post.contributionId)">
+                    <i class="material-icons" [class.disliked]="dislikedPosts.has(post.contributionId)">thumb_down</i>
+                    <!-- Thêm icon dislike -->
+                </button>
+                <span>{{ post.dislikes }}</span> <!-- Hiển thị số lượng dislike -->
+            </div>
+
+            <!-- Nút comment -->
+            <div *ngIf="this.role=='Student'" class="icon-with-count" >
+                <button type="button" class="comment-btn" (click)="getComt(post.contributionId,post.title)">
+                    <i class="material-icons">comment</i> <!-- Thêm icon comment -->
+                </button>
+                <!-- Hiển thị số lượng comment -->
+            </div>
+            <!-- Nút views -->
+            <!-- Nút download -->
+            <!-- Nút detail -->
+            <div *ngIf="this.role!='MarketingCoordinator'" class="icon-with-count">
+                <button (click)="fetchPostDetails(post.contributionId)" type="button" class="detail-btn">
+                    <i class="material-icons">info</i> <!-- Thêm icon detail -->
+                </button>
+            </div>
+            <div *ngIf="this.role=='MarketingManager'" class="icon-with-count">
+                <button (click)="infStudent(post.userID)" type="button" class="detail-btn">
+                    information
+                </button>
+            </div>
+            <p-dialog header="Student Information" [(visible)]="opStudentDetail">
+                <div *ngIf="userDetailLoaded">
+                    <p>Name: {{ userDetail.fullName }}</p>
+                    <p>Email: {{ userDetail.email }}</p>
+                    <!-- Các thông tin khác của sinh viên -->
+                </div>
+            </p-dialog>
+        </div>
+    </div>
+</div> <!-- P-Dialog cho phần comment -->
+<p-dialog header="Comment of {{titleDialog}}" [(visible)]="visible">
+    <div class="custom-comment-container">
+        <!-- Form chỉnh sửa comment -->
+        <div *ngIf="editingCommentId !== null" class="custom-comment-edit-form">
+            <div class="comment-input-wrapper">
+                <input slot="input" type="text" placeholder="Write a comment..." [(ngModel)]="editedCommentContent"
+                    class="custom-comment-input" />
+                <button type="button" (click)="saveEditedComment(editingCommentId, editedCommentContent)"
+                    class="custom-save-comment-btn">Save</button>
+                <button type="button" (click)="cancelEditComment()" class="custom-cancel-comment-btn">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Hiển thị danh sách comment -->
+        <div *ngFor="let cmt of commentList" class="custom-comment" [hidden]="editingCommentId === cmt.id">
+            <!-- Hiển thị nội dung comment -->
+            <div class="custom-comment-content">{{ cmt.content }}</div>
+            <!-- Các nút tương tác -->
+            <div class="custom-comment-actions">
+                <button type="button" class="custom-like-btn" (click)="doLikeCmt(cmt.id,false)"
+                    [hidden]="editingCommentId === cmt.id">
+                    <i class="material-icons">thumb_up</i> {{cmt.likes}}
+                </button>
+                <button type="button" class="custom-dislike-btn" (click)="doDisLikeCmt(cmt.id,false)"
+                    [hidden]="editingCommentId === cmt.id">
+                    <i class="material-icons">thumb_down</i> {{cmt.dislikes}}
+                </button>
+                <button *ngIf="this.userID==cmt.userId" type="button" class="custom-delete-btn"
+                (click)="deleteComment(cmt.id)" [hidden]="editingCommentId === cmt.id">Delete</button>
+            <button *ngIf="this.userID==cmt.userId" type="button" class="custom-edit-btn"
+                (click)="startEditComment(cmt.id, cmt.content)" [hidden]="editingCommentId === cmt.id">Edit</button>
+            </div>
+            <button type="button" (click)="getCmtOfCmt(cmt.id,true)" class="custom-reply-btn">
+                <i class="material-icons">reply</i> Reply
+            </button>
+            <div *ngIf="this.opReply==true">
+                <div *ngFor="let cmt2 of listCmtofCmt">
+                    <p class="custom-comment-content">{{cmt2.content}}</p>
+                </div>
+                <div class="custom-comment-input-wrapper">
+                    <input slot="input" type="text" placeholder="Write a comment..." [(ngModel)]="replyWord"
+                        class="custom-comment-input" />
+                    <button type="button" (click)="postCmtOfCmt(replyWord, cmt.id)" class="custom-post-comment-btn">Post
+                        reply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Form comment -->
+    <div *ngIf="finalClosureDate">
+        <div *ngIf="isPastFinalClosureDate(finalClosureDate)">
+            <p>Commenting is disabled as the final closure date has passed.</p>
+        </div>
+        <div *ngIf="!isPastFinalClosureDate(finalClosureDate)">
+            <div class="custom-comment-input-wrapper">
+                <input slot="input" type="text" placeholder="Write a comment..." [(ngModel)]="commentWord"
+                    class="custom-comment-input" />
+                <button type="button" (click)="postComt(commentWord)" class="custom-post-comment-btn">Post Comment</button>
+            </div>
+        </div>
+    </div>
+</p-dialog>

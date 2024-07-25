@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Your Website</title>
+</head>
+
+<body>
+
+    <nav class="side-bar">
+        <span *ngIf="this.role=='Admin' || this.role=='MarketingCoordinator'" class="nav-item active">
+            <span class="icon">
+                <i data-feather="user"></i>
+            </span>
+            <a routerLink="/managerStudent">Manager Users</a>
+        </span>
+        <span *ngIf="this.role=='MarketingManager'" class="nav-item active">
+            <span class="icon">
+                <i data-feather="user"></i>
+            </span>
+            <a routerLink="/dashboard">Dashboard</a>
+        </span>
+        <span *ngIf="this.role!='MarketingManager'" class="nav-item active">
+            <span class="icon">
+                <i data-feather="user"></i>
+            </span>
+            <a routerLink="/events">Event</a>
+        </span>
+        <span *ngIf="this.role=='Admin'" class="nav-item active">
+            <span class="icon">
+                <i data-feather="user"></i>
+            </span>
+            <a routerLink="/register">Create Account</a>
+        </span>
+
+    </nav>
+
+    <main class="main-content">
+        <app-show-post> </app-show-post>
+    </main>
+</body>
+
+</html>

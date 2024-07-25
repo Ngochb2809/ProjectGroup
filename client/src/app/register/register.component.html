@@ -1,0 +1,32 @@
+<div class="form-container">
+    <form class="register" [formGroup]="registerForm" (ngSubmit)="submit()">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" formControlName="email" id="email" placeholder="Email" />
+        </div>
+        <div class="form-group">
+            <label for="fullName">Fullname:</label>
+            <input type="text" formControlName="fullName" id="fullName" placeholder="Fullname" />
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" formControlName="password" id="password" placeholder="Password" />
+        </div>
+        <div class="form-group">
+            <label for="faculty">Faculty:</label>
+            <input type="text" formControlName="faculty" id="faculty" placeholder="Faculty" />
+        </div>
+        <div class="form-group">
+            <label for="role">Role:</label>
+            <select formControlName="roles" id="role" placeholder="Role">
+                <option value="MarketingManager">Marketing Manager</option>
+                <option value="MarketingCoordinator">Marketing Coordinator</option>
+                <option value="Student">Student</option>
+                <option value="Guest">Guest</option>
+            </select>
+        </div>
+        <div class="button-container">
+            <button type="submit" (click)="submit()" class="register-button">Register</button>
+        </div>
+    </form>
+</div>

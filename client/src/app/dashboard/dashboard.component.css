@@ -1,0 +1,36 @@
+.container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+}
+
+canvas {
+    width: 30%;
+    height: auto;
+    margin-bottom: 20px; /* Khoảng cách giữa canvas và nút "Show Table" */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Khoảng cách giữa bảng và canvas hoặc nút "Show Table" */
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+button {
+    margin-bottom: 20px; /* Khoảng cách giữa nút "Show Table" và canvas hoặc bảng */
+}

@@ -1,0 +1,47 @@
+<div class="container">
+    <table class="student-table">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of listAllUsers">
+                <td>{{ user.fullName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles }}</td>
+                <td>
+                    <button *ngIf="this.role=='Admin'"(click)="editUser(user)">Edit</button>
+                    
+                    <button *ngIf="this.role=='Admin'" (click)="deleteUser(user.id)">Delete</button>
+                    <app-toast *ngIf="showToast" [message]="toastMessage"></app-toast>
+                    <button *ngIf="this.role=='MarketingCoordinator'" (click)="showListPosStudent(user.id,user.fullName)">Show Posts</button>
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p-dialog header="Edit User" [(visible)]="opEdit"[style]="{ width: '30%' }">
+    <div *ngIf="editingUser">
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" [(ngModel)]="editingUser.fullName" /><br/>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" [(ngModel)]="editingUser.email" /><br/>
+        <label for="email">Phone:</label>
+        <input type="phone" id="phone" [(ngModel)]="editingUser.phoneNumber" /><br/>
+        <!-- Add more fields for other user information if needed -->
+
+        <button (click)="saveUserChanges(editingUser.id)">Save</button>
+        <app-toast *ngIf="showToast" [message]="toastMessage"></app-toast>
+        <button (click)="cancelEdit()">Cancel</button>
+    </div>
+</p-dialog>
+<p-dialog header="All post of {{this.fulName}}" [(visible)]="opPost">
+    <app-show-post></app-show-post>
+</p-dialog>

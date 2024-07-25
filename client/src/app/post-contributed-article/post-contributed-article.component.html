@@ -1,0 +1,40 @@
+<div class="container">
+    <h2>Post Contributed Article</h2>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" name="title" [(ngModel)]="postModel.title" required>
+        </div>
+        <div class="form-group">
+            <label for="submissionDate">Submission Date:</label>
+            <span class="form-control" id="submissionDate">{{ postModel.submissionDate | date: 'yyyy-MM-ddTHH:mm' }}</span>
+        </div>
+        <div class="form-group">
+            <label for="content">Content:</label>
+            <textarea class="form-control" id="content" name="content" [(ngModel)]="postModel.content" required></textarea>
+        </div>
+        <!--  <div class="card flex justify-content-center">
+            <p-checkbox [(ngModel)]="checked" inputId="binary"></p-checkbox>
+            <p> Agree <button type="button" (click)="toggleTerms()"> terms and services</button>
+            </p>
+        </div> -->
+        <div class="form-group">
+            <label for="file">Upload File:</label>
+            <input type="file" class="form-control-file" id="file" name="file" (change)="onFileSelected($event)"required>
+        </div>
+        <div class="card flex justify-content-center">
+            <input type="checkbox" id="termsCheckbox" [(ngModel)]="checked" required>
+            <p> Agree <button type="button" (click)="toggleTerms()"> terms and services</button>
+            </p>
+        </div> 
+        <div class = "term-container" *ngIf="showTerms">
+            <p>All assignments are your individual work.</p>
+            <p>Ensure that you have worked sincerely and honestly.</p>
+            <p>Do not copy the work of others.</p>
+            <p>Do it on your own and express your opinions.</p>
+            <p>Ensure that your assignment does not contain any inappropriate or offensive content.</p>
+        </div>
+        <button type="submit" class="post-button">Submit</button>
+        <app-toast *ngIf="showToast" [message]="toastMessage"></app-toast>
+    </form>
+</div>

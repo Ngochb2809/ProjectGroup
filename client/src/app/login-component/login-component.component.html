@@ -1,0 +1,38 @@
+<div class="login-page">
+    <div class="login-page-background"></div>
+    <div class="wrapper" *ngIf="!showHeaderFooter">
+        <form (ngSubmit)="login()" class="form-signin" [formGroup]="loginForm">
+            <h2 class="form-signin-heading">Sign Into</h2>
+            <div class="form-group">
+                <input
+                    formControlName="email"
+                    class="form-control"
+                    type="text"
+                    placeholder="Email"
+                    pInputText
+                    [(ngModel)]="model.Email"
+                />
+                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+                    Please enter a valid email
+                </div>
+            </div>
+            <div class="form-group">
+                    <input
+                    formControlName="password"
+                    class="form-control"
+                    placeholder="Password"
+                    type="password"
+                    [(ngModel)]="model.Password"
+                    required
+                    />
+                    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+                        Password is required
+                    </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+            </div>
+            <p>Users must log in to access the website</p>
+        </form>
+    </div>
+</div>

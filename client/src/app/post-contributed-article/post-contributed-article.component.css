@@ -1,0 +1,106 @@
+.post-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.post-container h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.post-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex; /* Add flex display to form-group */
+    align-items: center; /* Align items vertically */
+}
+
+label {
+    display: inline-block; /* Change display to inline-block */
+    width: 150px; /* Adjust width as needed */
+    font-weight: bold;
+    margin-right: 10px; /* Add some margin between label and value */
+}
+
+span.form-control {
+    display: inline-block; /* Change display to inline-block */
+    width: calc(100% - 160px); /* Adjust width as needed */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="datetime-local"],
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.post-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #3498db;
+}
+
+.post-button:hover {
+    background-color: #2980b9;
+}
+
+
+.card p {
+    margin-bottom: 10px;
+}
+
+.card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.card input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.card button {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: #555; /* Màu chữ xám nhạt */
+    background-color: #f0f0f0; /* Màu nền xám nhạt */
+    padding: 10px 20px;
+    transition: background-color 0.3s ease; /* Thêm hiệu ứng chuyển đổi */
+}
+
+.card button:hover {
+    background-color: #e0e0e0; /* Màu nền xám nhạt khi hover */
+}
+
+.term-container h1 {
+    font-size: 18px; /* Giảm kích thước font */
+    margin-bottom: 10px; /* Giảm khoảng cách giữa các dòng */
+}

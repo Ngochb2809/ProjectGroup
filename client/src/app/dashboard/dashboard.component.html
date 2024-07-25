@@ -1,0 +1,43 @@
+<div class="container">
+    <button (click)="exportExcel()">Export Excel</button>
+    <h2>Percentage</h2>
+    <canvas #pieChartCanvas></canvas>
+    <button (click)="toggleTable()">Show Table</button>
+    <table *ngIf="showTable">
+        <thead>
+            <tr>
+                <th>Faculty Name</th>
+                <th>Number of Contributions</th>
+                <th>Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let contribution of contributionsByFaculty">
+                <td>{{ contribution.facultyName }}</td>
+                <td>{{ contribution.numberOfContributions }}</td>
+                <td>{{ calculatePercentage(contribution.numberOfContributions) }}%</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <h2>Number of contribution</h2>
+    <div>
+        <canvas #barChartCanvas></canvas>
+    </div>
+    <table *ngIf="showTable" id="table-to-export">
+        <thead>
+            <tr>
+                <th>Faculty Name</th>
+                <th>Number of Contributions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let contribution of contributionsByFaculty">
+                <td>{{ contribution.facultyName }}</td>
+                <td>{{ contribution.numberOfContributions }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

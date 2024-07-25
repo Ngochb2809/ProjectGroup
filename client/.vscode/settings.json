@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/d6920a63-33d4-41da-8a3e-9166a1d53d16/resourceGroups/myResourceGroup/providers/Microsoft.Web/sites/client1640",
+    "appService.deploySubpath": "dist\\1640-GROUP2"
+}
